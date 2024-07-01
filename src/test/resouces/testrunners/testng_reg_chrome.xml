@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<suite name="OpenCartTestNG Regression Suite" verbose="3" parallel="tests"
+	thread-count="3">
+
+
+	<test name="LoginPageTest">
+		<classes>
+			<class name="com.qa.opencart.tests.LoginPageTest" />  
+			<parameter name="browser"
+			value="chrome" />
+		</classes>
+	</test>
+
+
+
+<test name="AccountPageTest">
+		<classes>
+			<class name="com.qa.opencart.tests.AccountPageTest" />  
+				<parameter name="browser"
+			value="chrome" />
+		</classes>
+	</test>
+
+
+	<test name="Open Cart App Test">
+		<parameter name="browser" value="chrome" />
+		<classes>
+			<class name="com.qa.opencart.tests.RegisterPageTest" />
+		</classes>
+	</test>
+
+
+</suite>
+
+
