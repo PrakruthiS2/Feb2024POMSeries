@@ -42,7 +42,7 @@ public class BaseTesttestng {
 		//we cant create obj directly as we have public contr with driver
 		
 		
-		prop=df.initProp();
+		prop=df.initProp(); // go to initPRop , enters driverfactory
 		//browsername from xml parameter 
 		if(browserName!=null)
 		{

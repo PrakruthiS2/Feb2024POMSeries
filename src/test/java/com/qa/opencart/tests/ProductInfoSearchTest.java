@@ -78,6 +78,17 @@ public class ProductInfoSearchTest extends BaseTesttestng {
 	
 	}
 	
+	
+	
+	@Test(dataProvider="getProductImageSheetData")
+	public void getProductImageSCount(String searchkey,String productName,int imagecount)  //searchkey,productname,imagecount comes from dataprovider
+	{
+		searchresultspage=	accPage.doSearch(searchkey);
+		prodinfosearch=	searchresultspage.selectProduct(productName);
+	//	int productimagecount=prodinfosearch.getProductImagesCount();
+		Assert.assertEquals(prodinfosearch.getProductImagesCount(), imagecount,AppError.IMAGES_NOT_MATCHED);
+	
+	}
 
 	
 	

@@ -5,15 +5,15 @@
 	thread-count="3">
 
 
-	<test name="Google Test _ chrome">
+<!--	<test name="Google Test _ chrome">
 		<classes>
 			<class name="tests.GoogleTest" />
 			<parameter name="browser" value="chrome" />
 			<parameter name="url" value="https://google.com" />
 
 		</classes>
-	</test>
-<test name="Open Cart Test">
+	</test>-->
+<!--<test name="Open Cart Test_ff">
 		<parameter name="browser" value="firefox" />
 		<parameter name="url"
 			value="https://naveenautomationlabs.com/opencart/index.php?route=account/login" />
@@ -22,9 +22,9 @@
 		<classes>
 			<class name="mytests.OpenCartLoginTest" />
 		</classes>
-	</test>
+	</test>-->
 
-
+<!--
 	<test name="OrangeHRM Test">
 		<parameter name="browser" value="chrome" />
 		<parameter name="url"
@@ -34,7 +34,7 @@
 		<classes>
 			<class name="mytests.OrangeHRMTest" />
 		</classes>
-	</test>
+	</test>-->
 
 
 

@@ -51,13 +51,7 @@ public class ProductInfoSearch {
 
 	
 	
-	
-	
-	
-	
-	
-	public Map<String, String> getProductInfo()
-	{
+	public Map<String, String> getProductInfo()	{
 		productMap=new HashMap<String,String>();
 		//putting values into map- user defined key, value
 		productMap.put("productname",getProductHeader());

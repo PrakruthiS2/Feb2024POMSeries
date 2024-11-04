@@ -6,23 +6,23 @@
 	thread-count="3">
 
 
-	<test name="LoginPageTest">
+<!--	<test name="LoginPageTest">
 		<classes>
 			<class name="com.qa.opencart.tests.LoginPageTest" />  
 			<parameter name="browser"
 			value="chrome" />
 		</classes>
 	</test>
+-->
 
 
-
-<test name="AccountPageTest">
+<!--<test name="AccountPageTest">
 		<classes>
 			<class name="com.qa.opencart.tests.AccountPageTest" />  
 				<parameter name="browser"
 			value="chrome" />
 		</classes>
-	</test>
+	</test>-->
 
 
 	<test name="Open Cart App Test">
