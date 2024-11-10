@@ -19,30 +19,30 @@
 	</test>
 
 
-	
-<!--<test name="AccountPageTest">
+<!---->	
+<test name="AccountPageTest">
 		<classes>
 			<class name="com.qa.opencart.tests.AccountPageTest" />  
 				<parameter name="browser"
-			value="firefox" />
+			value="chrome" />
 		</classes>
-	</test>-->
-<!--<test name="ProductInfoSearchTest">
+	</test>
+<test name="ProductInfoSearchTest">
 	
 	<parameter name ="browser" value="chrome"></parameter>
 		<classes>
 			<class name="com.qa.opencart.tests.ProductInfoSearchTest" />  
 		</classes>
-	</test>-->
+	</test>
 
 	
-<!--	<test name="RegisterPageTest">
+	<test name="RegisterPageTest">
 		<parameter name="browser" value="chrome" />
 		<classes>
 			<class name="com.qa.opencart.tests.RegisterPageTest" />
 		</classes>
 	</test>
--->
+
 <!--	<test name="Open Cart App Test">
 		<parameter name="browser" value="chrome" />
 		<classes>
