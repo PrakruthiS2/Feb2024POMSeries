@@ -4,6 +4,11 @@
 <suite name="TestNG Regression Suite" verbose="3" parallel="tests"
 	thread-count="3">
 
+<listeners>
+	<listener 
+	class-name="com.qa.opencart.listeners.ExtentReportListener" />
+</listeners>
+
 
 <!--	<test name="Google Test _ chrome">
 		<classes>
