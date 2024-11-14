@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Properties;
 
 import org.openqa.selenium.OutputType;
@@ -21,7 +23,6 @@ import com.qa.opencart.errors.AppError;
 import com.qa.opencart.exceptions.BrowserException;
 import com.qa.opencart.exceptions.FrameWorkException;
 
-
 public class DriverFactory {
 
 	Properties prop;
@@ -31,33 +32,49 @@ public class DriverFactory {
 	 * This is used to initialize driver on the basis of given browser
 	 */
 
-	//for parallel execution
-	//initializing driver with threadlocal, it creates 1 local copy of driver for every threads..
-	
-	
+	// for parallel execution
+	// initializing driver with threadlocal, it creates 1 local copy of driver for
+	// every threads..
+
+	// we have chromeoptions method in Optionsmanager classs hence creating object
+	// and then calling chromeoptions from which we can use co reference
+	OptionsManager optionsManager;
+
+	public static String highlight;
+
 	public static ThreadLocal<WebDriver> tlDriver = new ThreadLocal<WebDriver>();
-	
+
 	public WebDriver initDriver(Properties prop) {
 		// cross browser logic
 
 		String browserName = prop.getProperty("browser");
 		System.out.println("the browser name is:" + browserName);
+
+		// highlight = prop.getProperty("highlight");
+
+		optionsManager = new OptionsManager(prop);
+
 		switch (browserName.toLowerCase().trim()) {
 		case "chrome":
-			//driver = new ChromeDriver();
-			//setting the threadlocal driver
-			tlDriver.set(new ChromeDriver()); 
+
+			if (Boolean.parseBoolean(prop.getProperty("remote"))) {
+				initRemoteDriver("chrome");
+			}
+			// driver = new ChromeDriver();
+			// setting the threadlocal driver
+			// tlDriver.set(new ChromeDriver());
+			tlDriver.set(new ChromeDriver(optionsManager.getChromeOptions()));
 			break;
 		case "firefox":
 			driver = new FirefoxDriver();
 			tlDriver.set(new FirefoxDriver());
 			break;
 		case "edge":
-		//	driver= new EdgeDriver();
+			// driver= new EdgeDriver();
 			tlDriver.set(new EdgeDriver());
 			break;
 		case "safari":
-		//	driver = new SafariDriver();
+			// driver = new SafariDriver();
 			tlDriver.set(new SafariDriver());
 			break;
 
@@ -66,34 +83,58 @@ public class DriverFactory {
 			System.out.println("plz pass right browser" + browserName);
 			throw new BrowserException(AppError.BROWSER_NOT_FOUND);
 		}
-		
-		
-		//getting the threadlocaldriver
-		
-		//driver.manage().deleteAllCookies();
+
+		// getting the threadlocaldriver
+
+		// driver.manage().deleteAllCookies();
 		getDriver().manage().deleteAllCookies();
-	//	driver.manage().window().maximize();
+		// driver.manage().window().maximize();
 		getDriver().manage().window().maximize();
 //		driver.get("https://naveenautomationlabs.com/opencart/index.php?route=account/login");
-		//driver.get(prop.getProperty("url"));
+		// driver.get(prop.getProperty("url"));
 		getDriver().get(prop.getProperty("url"));
-		
+
 		// it gives driver
 		return getDriver();
 	}
 
-	
-	//to get the thread local driver
-	
-	public static WebDriver getDriver()
-	{
+
+/*********************************
+ * to initiate remote driver to run test cases in remote grid machine
+ * @param browserName
+ */
+	private void initRemoteDriver(String browserName) {
+		// TODO Auto-generated method stub
+
+		System.out.println("running in grid" + browserName);
+
+		try {
+			switch (browserName) {
+			case "chrome":
+
+				tlDriver.set(
+						new RemoteWebDriver(new URL(prop.getProperty("huburl")), optionsManager.getChromeOptions()));
+
+				break;
+
+			default:
+				System.out.println("please pass the right browser name");
+				throw new BrowserException(AppError.BROWSER_NOT_FOUND);
+
+			}
+		}
+
+		catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	// to get the thread local driver
+
+	public static WebDriver getDriver() {
 		return tlDriver.get();
 	}
-	
-	
-	
-	
-	
+
 	/***
 	 * this method is used to initialize properties from .prop file return prop
 	 * 
@@ -117,11 +158,11 @@ public class DriverFactory {
 		// it enters
 		// testng_Regression.xml
 		String envname = System.getProperty("env");
-		System.out.print("running in environement===" + envname);
+		System.out.print("running in environment===" + envname);
 
 		if (envname == null) {
 			try {
-				ip = new FileInputStream(AppConstant.CONFIG_FILE_PATH);
+				ip = new FileInputStream(AppConstant.UAT_FILE_PATH);
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -145,6 +186,7 @@ public class DriverFactory {
 				case "dev":
 					ip = new FileInputStream(AppConstant.DEV_FILE_PATH);
 					break;
+
 				default:
 					System.out.println("please pass the right env name" + envname);
 					throw new FrameWorkException("WRONG ENV PASSED");
@@ -168,25 +210,25 @@ public class DriverFactory {
 		return prop;
 
 	}
-	
-	
-	public static String getScreenshot(String methodName)
-	{
-		
-		//TakesScereenshotAs ts= (TakeScreenshotAs)driver; //driver will be of type TakeScreenshotAs interface
-		//just like JavaScriptExecutor   driver is of type JSExecutor here
-		
-		//take RHS
-		
-		File srcFile=((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);//temp location
-	String path=System.getProperty("user.dir")+"/screenshots/"+methodName+"_"+System.currentTimeMillis()+".png";
-	File destinationFile=new File(path); //creating destination place
-	try {
-		FileHandler.copy(srcFile, destinationFile);   // copying file from destination to source
-	} catch (IOException e) {
-		// TODO Auto-generated catch block
-		e.printStackTrace();
-	}
-	return path;
+
+	public static String getScreenshot(String methodName) {
+
+		// TakesScereenshotAs ts= (TakeScreenshotAs)driver; //driver will be of type
+		// TakeScreenshotAs interface
+		// just like JavaScriptExecutor driver is of type JSExecutor here
+
+		// take RHS
+
+		File srcFile = ((TakesScreenshot) getDriver()).getScreenshotAs(OutputType.FILE);// temp location
+		String path = System.getProperty("user.dir") + "/screenshots/" + methodName + "_" + System.currentTimeMillis()
+				+ ".png";
+		File destinationFile = new File(path); // creating destination place
+		try {
+			FileHandler.copy(srcFile, destinationFile); // copying file from destination to source
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return path;
 	}
 }

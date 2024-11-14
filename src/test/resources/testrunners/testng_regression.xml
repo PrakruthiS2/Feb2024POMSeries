@@ -4,23 +4,26 @@
 <suite name="OpenCartTestNG Regression Suite" verbose="3" parallel="tests"
 	thread-count="3">
 
-<!--type ctrl+shift+/ for comment  and ctrl+shift+\ for uncomment-->
-<listeners>
-	<listener 
-	class-name="com.qa.opencart.listeners.ExtentReportListener" />
-</listeners>
+	<!--type ctrl+shift+/ for comment  and ctrl+shift+\ for uncomment-->
+	<listeners>
+		<listener
+			class-name="com.qa.opencart.listeners.ExtentReportListener"/>
+			<listener
+			class-name="com.qa.opencart.listeners.AnnotationTransformer"/>
+
+	</listeners>
 
 	<test name="LoginPageTest">
 		<classes>
-			<class name="com.qa.opencart.tests.LoginPageTest" />  
+			<class name="com.qa.opencart.tests.LoginPageTest" />
 			<parameter name="browser"
-			value="chrome" />
+				value="chrome" />
 		</classes>
 	</test>
 
 
-<!---->	
-<test name="AccountPageTest">
+	<!---->
+	<!--<test name="AccountPageTest">
 		<classes>
 			<class name="com.qa.opencart.tests.AccountPageTest" />  
 				<parameter name="browser"
@@ -41,9 +44,9 @@
 		<classes>
 			<class name="com.qa.opencart.tests.RegisterPageTest" />
 		</classes>
-	</test>
+	</test>-->
 
-<!--	<test name="Open Cart App Test">
+	<!--	<test name="Open Cart App Test">
 		<parameter name="browser" value="chrome" />
 		<classes>
 			<class name="com.qa.opencart.tests.RegisterPageTest" />

@@ -19,7 +19,7 @@ public class OptionsManager {
 
 	public ChromeOptions getChromeOptions() {
 		co = new ChromeOptions();
-
+//since if condition expects  boolean- using wrapper classto get property headless
 		if (Boolean.parseBoolean(prop.getProperty("headless"))) {
 			System.out.println("====Running tests in headless======");
 			co.addArguments("--headless");
@@ -27,6 +27,12 @@ public class OptionsManager {
 		}
 		if (Boolean.parseBoolean(prop.getProperty("incognito"))) {
 			co.addArguments("--incognito");
+		}
+		
+		if(Boolean.parseBoolean(prop.getProperty("remote")))
+		{
+			co.setCapability("browserName", "chrome");
+		//	co.setCapability("enableVNC", true);
 		}
 
 		return co;
@@ -42,6 +48,12 @@ public class OptionsManager {
 		if (Boolean.parseBoolean(prop.getProperty("incognito"))) {
 			fo.addArguments("--incognito");
 		}
+//		if(Boolean.parseBoolean(prop.getProperty("remote")))
+//		{
+//			fo.setCapability("browserName", "firefox");
+//		//	fo.setCapability("enableVNC", true);
+//		}
+
 
 		return fo;
 	}
@@ -56,6 +68,11 @@ public class OptionsManager {
 		if (Boolean.parseBoolean(prop.getProperty("incognito"))) {
 			eo.addArguments("--inPrivate");
 		}
+//		if(Boolean.parseBoolean(prop.getProperty("remote")))
+//		{
+//			eo.setCapability("browserName", "edge");
+//		//	eo.setCapability("enableVNC", true);
+//		}
 
 		return eo;
 	}
