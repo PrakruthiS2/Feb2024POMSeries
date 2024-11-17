@@ -56,15 +56,22 @@ public class DriverFactory {
 
 		switch (browserName.toLowerCase().trim()) {
 		case "chrome":
-
+//run tcs in remote/grid
 			if (Boolean.parseBoolean(prop.getProperty("remote"))) {
 				initRemoteDriver("chrome");
+				
 			}
+			//run tcs in local
+			else
+			{
+			tlDriver.set(new ChromeDriver(optionsManager.getChromeOptions()));
+			
+			}
+			break;
 			// driver = new ChromeDriver();
 			// setting the threadlocal driver
 			// tlDriver.set(new ChromeDriver());
-			tlDriver.set(new ChromeDriver(optionsManager.getChromeOptions()));
-			break;
+			
 		case "firefox":
 			driver = new FirefoxDriver();
 			tlDriver.set(new FirefoxDriver());

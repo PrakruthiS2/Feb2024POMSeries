@@ -7,9 +7,9 @@
 	<!--type ctrl+shift+/ for comment  and ctrl+shift+\ for uncomment-->
 	<listeners>
 		<listener
-			class-name="com.qa.opencart.listeners.ExtentReportListener"/>
-			<listener
-			class-name="com.qa.opencart.listeners.AnnotationTransformer"/>
+			class-name="com.qa.opencart.listeners.ExtentReportListener" />
+		<listener
+			class-name="com.qa.opencart.listeners.AnnotationTransformer" />
 
 	</listeners>
 
@@ -18,33 +18,44 @@
 			<class name="com.qa.opencart.tests.LoginPageTest" />
 			<parameter name="browser"
 				value="chrome" />
+			<parameter name="browserversion" value="123.0" />
+			<parameter name="testname" value="LoginPageTest" />
 		</classes>
+		
 	</test>
 
 
-	<!---->
-	<!--<test name="AccountPageTest">
+	
+	<test name="AccountPageTest">
 		<classes>
 			<class name="com.qa.opencart.tests.AccountPageTest" />  
 				<parameter name="browser"
 			value="chrome" />
+			<parameter name="browserversion" value="125.0" />
+			<parameter name="testname" value="AccountPageTest" />
 		</classes>
 	</test>
-<test name="ProductInfoSearchTest">
+	
+	
+<!--<test name="ProductInfoSearchTest">
 	
 	<parameter name ="browser" value="chrome"></parameter>
 		<classes>
 			<class name="com.qa.opencart.tests.ProductInfoSearchTest" />  
 		</classes>
-	</test>
+	</test>-->
 
 	
 	<test name="RegisterPageTest">
 		<parameter name="browser" value="chrome" />
 		<classes>
 			<class name="com.qa.opencart.tests.RegisterPageTest" />
+			<parameter name="browser"
+			value="chrome" />
+			<parameter name="browserversion" value="113.0" />
+			<parameter name="testname" value="AccountPageTest" />
 		</classes>
-	</test>-->
+	</test>
 
 	<!--	<test name="Open Cart App Test">
 		<parameter name="browser" value="chrome" />
